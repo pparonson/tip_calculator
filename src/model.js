@@ -1,6 +1,6 @@
 const initModel = {
-  billAmount: 32
-  , tipPercent: 10
+  billAmount: 0
+  , tipPercent: 18
   , tipAmount: 0
   , totalAmount: 0
 }

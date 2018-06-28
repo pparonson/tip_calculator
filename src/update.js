@@ -30,21 +30,34 @@ function update(_msg, _model) {
       R.defaultTo(0)
       , parseInt
     )(_msg.billAmount)
-    return {
+    const _tipAmount = (_billAmount * formatTipPercent(_model.tipPercent))
+    const _totalAmount = (_billAmount + _tipAmount)
+    return ({
       ..._model
       , billAmount: _billAmount
-    }
+      , tipAmount: _tipAmount
+      , totalAmount: _totalAmount
+    })
   }
   if (_msg.type === "TIP_PERCENT_INPUT") {
     const _tipPercent = R.compose(
       R.defaultTo(0)
       , parseInt
     )(_msg.tipPercent)
+    const _tipAmount = (_model.billAmount * formatTipPercent(_tipPercent))
+    const _totalAmount = (_model.billAmount + _tipAmount)
     return {
       ..._model
       , tipPercent: _tipPercent
+      , tipAmount: _tipAmount
+      , totalAmount: _totalAmount
     }
   }
+}
+
+// helper fns
+function formatTipPercent(_tip) {
+  return (_tip / 100)
 }
 
 export default update;
